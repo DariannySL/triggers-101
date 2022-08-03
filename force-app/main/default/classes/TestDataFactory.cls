@@ -13,29 +13,26 @@ public with sharing class TestDataFactory {
         List<Account> newAccts = createAccounts(210);
 
         Test.startTest();
-        insert(newAccts);
+        insert newAccts;
         Test.stopTest();
     }
 
     static testmethod void TestUpdateMultipleAccts() {
         List<Account> newAccts = createAccounts(210);
-        insert(newAccts);
+        insert newAccts;
         
         List<Account> AccountToUpdate = [
             SELECT Id, Rating
             FROM Account 
-            WHERE Id IN : newAccts];
+            WHERE Id IN :newAccts];
             
         for(Account Acct : AccountToUpdate) {
             Acct.rating = 'Warm';
         }
 
-
         Test.startTest();
         update AccountToUpdate;
         Test.stopTest();
-
-
     }
 
     public static List<Account> createAccounts(Integer accountsToCreate) {
